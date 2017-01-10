@@ -33,15 +33,17 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         hooks: {
             beforeCreate: function(createdUser, options, callback) {
-                var hash = bcrypt.hashSync(createdUser.password, 10);
-                createdUser.password = hash;
+                if (createdUser.password !== undefined) {
+                    var hash = bcrypt.hashSync(createdUser.password, 10);
+                    createdUser.password = hash;
+                }
                 callback(null, createdUser);
             }
         },
         classMethods: {
             associate: function(models) {
                 // associations can be defined here
-            },
+            }
         },
         instanceMethods: {
             validPassword: function(password) {
