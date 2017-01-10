@@ -1,0 +1,19 @@
+<div>
+    <form action="/articles/<%= article.id %>" method="PUT" class="put-form">
+        <p>
+            Name:
+        </p>
+        <p>
+            <input type="text" name="name" value="<%= article.name %>" />
+        </p>
+        <p>
+            Category:
+        </p>
+        <p>
+            <textarea name="category"><%= article.category %></textarea>
+        </p>
+        <p>
+            <button type="submit">Save</button>
+        </p>
+    </form>
+</div>
