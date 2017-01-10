@@ -1,8 +1,12 @@
 //requires
 var express = require("express");
-var request = require('request');
-var bodyParser = require("body-parser");
 var ejsLayouts = require("express-ejs-layouts");
+var bodyParser = require("body-parser");
+var session = require('express-session');
+var request = require('request');
+var passport = require('./config/ppConfig');
+var flash = require('connect-flash');
+var isLoggedIn = require('./middleware/isLoggedIn');
 var path = require('path');
 var moment = require('moment');
 
@@ -24,7 +28,31 @@ app.use(function(req, res, next) {
     res.locals.moment = moment;
     next();
 });
+// ONLY EXISTS ON CLIENT, secret makes essions unique
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'supersecretpassword',
+    resave: false,
+    saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(flash());
+
+app.use(function(req, res, next) {
+    res.locals.alerts = req.flash();
+    // this gets passed into app.get beneath
+    res.locals.currentUser = req.user;
+    // allows us to pass info about user into views
+    next();
+});
+
 //routes
+app.get('/profile', isLoggedIn, function(req, res) {
+    res.render('partials/profile');
+    // res.send('it works');
+});
 //about
 app.get('/about', function(req, res) {
     res.render('site/about');
@@ -36,8 +64,8 @@ app.get('/contact', function(req, res) {
 
 //Homepage
 app.get('/', function(req, res) {
-    var key = 'YLSxgabiaDdCAQPtRwAN';
-    var baseUrl = 'https://www.quandl.com/api/v3/datasets/FRED/A2007C1A027NBEA.json?api_key';
+    // var key = 'YLSxgabiaDdCAQPtRwAN';
+    // var baseUrl = 'https://www.quandl.com/api/v3/datasets/FRED/A2007C1A027NBEA.json?api_key';
 
     // var query = '';
 
@@ -49,16 +77,17 @@ app.get('/', function(req, res) {
     // attach the query to the url.
     // var url = baseUrl + '?s=' + query;
 
-    var url = baseUrl + key;
-    request(url, function(error, response, body) {
-        // if (!error && response.statusCode == 200) {
-        var result = JSON.parse(body).body;
-        console.log('body: ', body);
-        res.render('site/index', {
-            body: body
-        });
-        // }
-    });
+    // var url = baseUrl + key;
+    // request(url, function(error, response, body) {
+    // if (!error && response.statusCode == 200) {
+    //     var result = JSON.parse(body).body;
+    //     console.log('body: ', body);
+    //     res.render('site/index', {
+    //         body: body
+    //     });
+    //     // }
+    // });
+    res.render('site/index');
 });
 // gets all articles
 app.get("/articles", function(req, res) {
@@ -100,16 +129,15 @@ app.delete("/articles/:id", function(req, res) {
     });
 });
 
-//goes to edit form for beer with id
+//goes to edit form by id
 app.get('/articles/:id/edit', function(req, res) {
-    // res.send("edit form by id works");
     db.project_two.findById(req.params.id).then(function(article) {
         res.render('articles/edit', {
             article: article
         });
     });
 });
-//updates beer with given id
+//updates by given id
 app.put('/articles/:id', function(req, res) {
     db.project_two.findById(req.params.id).then(function(article) {
         article.update(req.body);
@@ -119,6 +147,9 @@ app.put('/articles/:id', function(req, res) {
         res.redirect('/articles/:id');
     });
 });
+
+app.use('/auth', require('./controllers/auth'));
+
 //listen
 var server = app.listen(process.env.PORT || 3000);
 module.exports = server;
