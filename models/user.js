@@ -29,6 +29,12 @@ module.exports = function(sequelize, DataTypes) {
                     msg: 'Password must be at least 8 digits long'
                 }
             }
+        },
+        facebookId: {
+            type: DataTypes.STRING
+        },
+        facebookToken: {
+            type: DataTypes.STRING
         }
     }, {
         hooks: {
