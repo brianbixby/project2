@@ -9,3 +9,22 @@
     <input type="submit" />
 </form>
 <h1>Search Results</h1>
+<table id="wholeTable" border="1">
+    <tr id='r1'>
+        <% parsedMain.dataset.column_names.forEach(function(columnName) { %>
+            <td>
+                <%= columnName %>
+            </td>
+            <% }); %>
+    </tr>
+    <% parsedMain.dataset.data.forEach(function(dataPoint) { %>
+        <tr>
+            <td>
+                <%= dataPoint[0] %>
+            </td>
+            <td>
+                <%= dataPoint[1] %>
+            </td>
+        </tr>
+        <% }); %>
+</table>

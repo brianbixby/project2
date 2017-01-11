@@ -10,6 +10,7 @@ var flash = require('connect-flash');
 var isLoggedIn = require('./middleware/isLoggedIn');
 var path = require('path');
 var moment = require('moment');
+var api = require('./modules/apiManipulation');
 
 //global variables
 var app = express();
@@ -66,30 +67,23 @@ app.get('/contact', function(req, res) {
 //Homepage
 app.get('/', function(req, res) {
     // var key = 'YLSxgabiaDdCAQPtRwAN';
-    // var baseUrl = 'https://www.quandl.com/api/v3/datasets/FRED/A2007C1A027NBEA.json?api_key';
-
-    // var query = '';
-
-    // allow people to search using query parameters.
-    // if (req.query.q !== undefined) {
-    //     query = req.query.q;
-    // }
-
-    // attach the query to the url.
-    // var url = baseUrl + '?s=' + query;
-
+    // var baseUrl = 'https://www.quandl.com/api/v3/datasets/ZILL/C03177_A.json?api_key=YLSxgabiaDdCAQPtRwAN';
     // var url = baseUrl + key;
-    // request(url, function(error, response, body) {
-    // if (!error && response.statusCode == 200) {
-    //     var result = JSON.parse(body).body;
-    //     console.log('body: ', body);
-    //     res.render('site/index', {
-    //         body: body
-    //     });
-    //     // }
-    // });
-    res.render('site/index');
+    var url = 'https://www.quandl.com/api/v3/datasets/ZILL/C03177_A.json?api_key=YLSxgabiaDdCAQPtRwAN';
+
+    request(url, function(error, response, main) {
+        var parsedMain = JSON.parse(main);
+        if (!error && response.statusCode == 200) {
+            console.log('main: ', main);
+            console.log('object.dataset.column_names: ', parsedMain.dataset.column_names);
+            api.parseJson(parsedMain);
+            res.render("site/index", {
+                parsedMain: parsedMain
+            });
+        }
+    });
 });
+
 // gets all articles
 app.get("/articles", function(req, res) {
     db.project_two.findAll().then(function(articles) {
@@ -148,6 +142,7 @@ app.put('/articles/:id', function(req, res) {
         res.redirect('/articles/:id');
     });
 });
+
 
 app.use('/auth', require('./controllers/auth'));
 

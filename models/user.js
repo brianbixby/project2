@@ -35,6 +35,15 @@ module.exports = function(sequelize, DataTypes) {
         },
         facebookToken: {
             type: DataTypes.STRING
+        },
+        GoogleId: {
+            type: DataTypes.STRING
+        },
+        GoogleImage_Url: {
+            type: DataTypes.STRING
+        },
+        GoogleId_Token: {
+            type: DataTypes.STRING
         }
     }, {
         hooks: {

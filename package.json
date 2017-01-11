@@ -1,7 +1,6 @@
 {
   "name": "project2",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,10 +22,21 @@
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
     "request": "^2.79.0",
     "sequelize": "^3.29.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brianbixby/project2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/brianbixby/project2/issues"
+  },
+  "homepage": "https://github.com/brianbixby/project2#readme",
+  "description": ""
 }
