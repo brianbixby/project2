@@ -64,6 +64,12 @@ app.get('/contact', function(req, res) {
 
 //Homepage
 app.get('/', function(req, res) {
+    res.render("site/index", {
+        parsedMain: null
+    });
+});
+
+app.get('/api/results', function(req, res) {
     var baseUrl = 'https://www.quandl.com/api/v3/datasets/ZILL/';
     var areaCategory = 'S';
     var areaCode = '00013';
@@ -75,7 +81,7 @@ app.get('/', function(req, res) {
         var parsedMain = JSON.parse(main);
         if (!error && response.statusCode == 200) {
             api.parseJson(parsedMain);
-            res.render("site/index", {
+            res.send({
                 parsedMain: parsedMain
             });
         }
