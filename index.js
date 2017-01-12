@@ -84,66 +84,7 @@ app.get('/', function(req, res) {
     });
 });
 
-// gets all articles
-app.get("/articles", function(req, res) {
-    db.project_two.findAll().then(function(articles) {
-        console.log(articles);
-        res.render("articles/all", {
-            articles: articles
-        });
-    });
-});
-
-//get new article form
-app.get("/articles/new", function(req, res) {
-    res.render('articles/new');
-});
-
-//get single article by ID
-app.get("/articles/:id", function(req, res) {
-    db.project_two.findById(req.params.id).then(function(article) {
-        res.render("articles/one", {
-            article: article
-        });
-    });
-});
-// create a new article
-app.post("/articles/new", function(req, res) {
-    db.project_two.create(req.body).then(function(article) {
-        res.redirect("/articles");
-    });
-});
-// delete beers and redirects to beers
-app.delete("/articles/:id", function(req, res) {
-    db.project_two.findById(req.params.id).then(function(article) {
-        article.destroy();
-        console.log(req.params.id);
-        res.send({
-            message: 'success destroying'
-        });
-    });
-});
-
-//goes to edit form by id
-app.get('/articles/:id/edit', function(req, res) {
-    db.project_two.findById(req.params.id).then(function(article) {
-        res.render('articles/edit', {
-            article: article
-        });
-    });
-});
-//updates by given id
-app.put('/articles/:id', function(req, res) {
-    db.project_two.findById(req.params.id).then(function(article) {
-        article.update(req.body);
-        res.send({
-            message: 'success putting'
-        });
-        res.redirect('/articles/:id');
-    });
-});
-
-
+app.use('/articles', require('./controllers/articles'));
 app.use('/auth', require('./controllers/auth'));
 
 //listen
