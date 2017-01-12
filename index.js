@@ -44,9 +44,7 @@ app.use(flash());
 
 app.use(function(req, res, next) {
     res.locals.alerts = req.flash();
-    // this gets passed into app.get beneath
     res.locals.currentUser = req.user;
-    // allows us to pass info about user into views
     next();
 });
 
@@ -66,16 +64,16 @@ app.get('/contact', function(req, res) {
 
 //Homepage
 app.get('/', function(req, res) {
-    // var key = 'YLSxgabiaDdCAQPtRwAN';
-    // var baseUrl = 'https://www.quandl.com/api/v3/datasets/ZILL/C03177_A.json?api_key=YLSxgabiaDdCAQPtRwAN';
-    // var url = baseUrl + key;
-    var url = 'https://www.quandl.com/api/v3/datasets/ZILL/C03177_A.json?api_key=YLSxgabiaDdCAQPtRwAN';
-
+    var baseUrl = 'https://www.quandl.com/api/v3/datasets/ZILL/';
+    var areaCategory = 'S';
+    var areaCode = '00013';
+    var indicatorCode = 'FR';
+    var key = 'YLSxgabiaDdCAQPtRwAN';
+    var url = baseUrl + areaCategory + areaCode + '_' + indicatorCode + '.json?api_key=' + key;
+    // ZILL/{AREA_CATEGORY}{AREA_CODE}_{INDICATOR_CODE}
     request(url, function(error, response, main) {
         var parsedMain = JSON.parse(main);
         if (!error && response.statusCode == 200) {
-            console.log('main: ', main);
-            console.log('object.dataset.column_names: ', parsedMain.dataset.column_names);
             api.parseJson(parsedMain);
             res.render("site/index", {
                 parsedMain: parsedMain
