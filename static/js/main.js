@@ -30,6 +30,7 @@ function grabChartData(indicatorCode) {
         );
         // console.log("chartArrayData: ", chartArrayData);
         drawChart(chartArrayData);
+
     });
 }
 
