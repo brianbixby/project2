@@ -69,11 +69,13 @@ app.get('/', function(req, res) {
     });
 });
 
-app.get('/api/results', function(req, res) {
+app.post('/api/results', function(req, res) {
+    console.log('req.body: ', req.body);
     var baseUrl = 'https://www.quandl.com/api/v3/datasets/ZILL/';
     var areaCategory = 'S';
     var areaCode = '00013';
-    var indicatorCode = 'FR';
+    var indicatorCode = req.body.indicatorCode || 'FR';
+    console.log('indicator code!!', indicatorCode);
     var key = 'YLSxgabiaDdCAQPtRwAN';
     var url = baseUrl + areaCategory + areaCode + '_' + indicatorCode + '.json?api_key=' + key;
     // ZILL/{AREA_CATEGORY}{AREA_CODE}_{INDICATOR_CODE}

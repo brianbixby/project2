@@ -1,9 +1,16 @@
 console.log("JS good to go, sir!");
 
 $(document).ready(function() {
+    grabChartData('FR');
+});
+
+function grabChartData(indicatorCode) {
     var url = '/api/results';
     $.ajax({
-        method: 'GET',
+        method: 'POST',
+        data: {
+            indicatorCode: indicatorCode
+        },
         url: url
     }).done(function(data) {
         // get data returned from the PUT route
@@ -24,7 +31,7 @@ $(document).ready(function() {
         console.log("chartArrayData: ", chartArrayData);
         drawChart(chartArrayData);
     });
-});
+}
 
 function parseJson(object) {
     // console.log(object);
@@ -86,4 +93,8 @@ $('.delete-link').on('click', function(e) {
         // go back to the homepage after deleting anything.
         window.location = '/';
     });
+});
+
+$("#indicatorCode").change(function() {
+    grabChartData();
 });

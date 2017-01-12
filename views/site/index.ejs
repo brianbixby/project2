@@ -5,26 +5,27 @@
     </div>
 </div>
 
-<form action="success.html" method="get">
-    <div class="form-group">
+
+<!-- <div class="form-group">
         <label> Area Categories: </label>
         <select name="areaCategory">
-      <option value="S"> State</option>
+      <option value="S" selected> State</option>
       <option value="CO">County</option>
       <option value="M"> Greater Metropolitan Area</option>
       <option value="C">City</option>
       <option value="N">Neighborhood</option>
       <option value="Z">Zip Code</option>
     </select>
-    </div>
+    </div> -->
 
-    <div class="form-group">
+<!-- <div class="form-group">
         <label>Zip Code </label><input type="text" pattern="[0-9]{5}" class="form-control" name="areaCode">
-    </div>
+    </div> -->
 
+<form action='/api/results' method="POST">
     <div class="form-group">
         <label> Search For:</label>
-        <select name="indicatorCode">
+        <select id="indicatorCode" name="indicatorCode">
   <option value="A">All Homes</option>
   <option value="SF"> Single Family Residences</option>
   <option value="C">Condominiums</option>
