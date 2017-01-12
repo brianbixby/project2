@@ -22,7 +22,7 @@
         <label>Zip Code </label><input type="text" pattern="[0-9]{5}" class="form-control" name="areaCode">
     </div> -->
 
-<form action='/api/results' method="POST">
+<form action="/api/results" method="POST">
     <div class="form-group">
         <label> Search For:</label>
         <select id="indicatorCode" name="indicatorCode">
@@ -56,7 +56,7 @@
 </select>
     </div>
 
-    <input class="btn btn-primary" type="submit">
+    <!-- <input class="btn btn-primary" type="submit"> -->
 </form>
 
 <h1>Search Results</h1>
@@ -65,7 +65,3 @@
 <table id="wholeTable" class="table table-striped table-condensed">
 
 </table>
-
-<script>
-    console.log('hello');
-</script>

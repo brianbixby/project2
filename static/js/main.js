@@ -14,7 +14,7 @@ function grabChartData(indicatorCode) {
         url: url
     }).done(function(data) {
         // get data returned from the PUT route
-        console.log(data);
+        // console.log('.done function main.js: ', data);
         parseJson(data);
         // refresh the page we're on using GET to display the item details.
         var chartArrayData = [];
@@ -28,18 +28,18 @@ function grabChartData(indicatorCode) {
         chartArrayData.unshift(
             data.parsedMain.dataset.column_names
         );
-        console.log("chartArrayData: ", chartArrayData);
+        // console.log("chartArrayData: ", chartArrayData);
         drawChart(chartArrayData);
     });
 }
 
 function parseJson(object) {
     // console.log(object);
-    console.log('object.dataset.column_names: ', object.parsedMain.dataset.column_names);
+    // console.log('object.dataset.column_names: ', object.parsedMain.dataset.column_names);
     var colmnNamesArray = object.parsedMain.dataset.column_names;
     getColumns(colmnNamesArray);
 
-    console.log('object.dataset.data :', object.parsedMain.dataset.data);
+    // console.log('object.dataset.data :', object.parsedMain.dataset.data);
     var dataArray = object.parsedMain.dataset.data;
     getData(dataArray);
 }
@@ -72,7 +72,7 @@ $('.put-form').on('submit', function(e) {
         data: formData
     }).done(function(data) {
         // get data returned from the PUT route
-        console.log(data);
+        // console.log(data);
 
         // refresh the page we're on using GET to display the item details.
         window.location = url;
@@ -88,7 +88,7 @@ $('.delete-link').on('click', function(e) {
         url: url
     }).done(function(data) {
         // get data returned from the DELETE route
-        console.log(data);
+        // console.log(data);
 
         // go back to the homepage after deleting anything.
         window.location = '/';
@@ -96,5 +96,6 @@ $('.delete-link').on('click', function(e) {
 });
 
 $("#indicatorCode").change(function() {
-    grabChartData();
+    var test = $('#indicatorCode').val();
+    grabChartData(test);
 });

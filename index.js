@@ -70,7 +70,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/api/results', function(req, res) {
-    console.log('req.body: ', req.body);
+    console.log('req.body-app.post: ', req.body);
     var baseUrl = 'https://www.quandl.com/api/v3/datasets/ZILL/';
     var areaCategory = 'S';
     var areaCode = '00013';
