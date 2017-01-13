@@ -18,7 +18,7 @@ function grabChartData(indicatorCode) {
         parseJson(data);
         // refresh the page we're on using GET to display the item details.
         var chartArrayData = [];
-        console.log("looking for this pne: ", data.parsedMain.dataset.data[0]);
+        // console.log("looking for this pne: ", data.parsedMain.dataset.data[0]);
         // parseJson(parsedMain.dataset.column_names)
         for (var i = 0; i < data.parsedMain.dataset.data.length; i++) {
             chartArrayData.unshift(
@@ -35,7 +35,8 @@ function grabChartData(indicatorCode) {
 }
 
 function parseJson(object) {
-    // console.log(object);
+
+    console.log(object);
     // console.log('object.dataset.column_names: ', object.parsedMain.dataset.column_names);
     var colmnNamesArray = object.parsedMain.dataset.column_names;
     getColumns(colmnNamesArray);
@@ -54,6 +55,8 @@ function getColumns(obj) {
 }
 
 function getData(obj) {
+    $('#wholeTable').innerHTML = "";
+    console.log("wholeTable.innerHTML: ", wholeTable.innerHTML);
     for (i = 0; i < obj.length; i++) {
         // console.log('Data Array: ', obj[i]);
         // console.log('Data Array date: ', obj[i][0]);
@@ -97,6 +100,7 @@ $('.delete-link').on('click', function(e) {
 });
 
 $("#indicatorCode").change(function() {
+    $("#wholeTable").empty();
     var test = $('#indicatorCode').val();
     grabChartData(test);
 });
