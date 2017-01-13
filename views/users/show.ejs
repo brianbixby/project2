@@ -1,0 +1,15 @@
+<h1>User: <%= user.name() %></h1>
+
+<a href="/posts/new" class="btn btn-primary">Create a new Post</a>
+
+<hr />
+
+<h2>Posts</h2>
+
+<% user.posts.forEach(function(post) { %>
+    <div class="well">
+        <h3>
+      <a href="/posts/<%= post.id %>"><%= post.title %></a>
+    </h3>
+    </div>
+    <% }); %>
