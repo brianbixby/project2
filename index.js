@@ -72,23 +72,24 @@ app.get('/', function(req, res) {
 
 app.post('/api/results', function(req, res) {
     // console.log('req.body-app.post: ', req.body);
-    // var baseUrl = 'https://www.quandl.com/api/v3/datasets/ZILL/';
-    // var areaCategory = 'S';
-    // var areaCode = '00013';
-    // var indicatorCode = req.body.indicatorCode || 'FR';
+    var baseUrl = 'https://www.quandl.com/api/v3/datasets/ZILL/';
+    var areaCategory = 'S';
+    var areaCode = '00013';
+    var indicatorCode = req.body.indicatorCode || 'FR';
     // console.log('indicator code!!', indicatorCode);
     // var key = 'YLSxgabiaDdCAQPtRwAN';
-    // var url = baseUrl + areaCategory + areaCode + '_' + indicatorCode + '.json?api_key=' + key;
-    // // ZILL/{AREA_CATEGORY}{AREA_CODE}_{INDICATOR_CODE}
-    // request(url, function(error, response, main) {
-    //     var parsedMain = JSON.parse(main);
-    //     if (!error && response.statusCode == 200) {
-    //         api.parseJson(parsedMain);
-    //         res.send({
-    //             parsedMain: parsedMain
-    //         });
-    //     }
-    // });
+    var key = 'F-CKwt8F1e2GmwanRSQv';
+    var url = baseUrl + areaCategory + areaCode + '_' + indicatorCode + '.json?api_key=' + key;
+    // ZILL/{AREA_CATEGORY}{AREA_CODE}_{INDICATOR_CODE}
+    request(url, function(error, response, main) {
+        var parsedMain = JSON.parse(main);
+        if (!error && response.statusCode == 200) {
+            api.parseJson(parsedMain);
+            res.send({
+                parsedMain: parsedMain
+            });
+        }
+    });
 });
 
 app.use('/articles', require('./controllers/articles'));
@@ -96,6 +97,7 @@ app.use('/auth', require('./controllers/auth'));
 app.use('/posts', require('./controllers/posts'));
 app.use('/tags', require('./controllers/tags'));
 app.use('/users', require('./controllers/users'));
+app.use('/favorites', require('./controllers/favorites'));
 
 //listen
 var server = app.listen(process.env.PORT || 3000);

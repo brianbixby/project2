@@ -1,5 +1,7 @@
 var chartArrayData;
 
+
+console.log(indicatorCode);
 google.charts.load('current', {
     'packages': ['corechart']
 });
@@ -8,7 +10,7 @@ function drawChart(chartArrayData) {
     var data = google.visualization.arrayToDataTable(chartArrayData);
 
     var options = {
-        title: 'Company Performance',
+        title: '',
         curveType: 'function',
         legend: {
             position: 'bottom'
@@ -16,6 +18,5 @@ function drawChart(chartArrayData) {
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
     chart.draw(data, options);
 }

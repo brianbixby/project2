@@ -18,16 +18,21 @@
             <ul class="nav navbar-nav">
                 <!-- <li><a href="/articles" class="btn btn-primary">All Articles </a></li>
                 <li><a href="/articles/new" class="btn btn-info">New Article </a></li> -->
-                <li><a href="/about" class="btn btn-info">About </a></li>
-                <li><a href="/contact" class="btn btn-info">Contact </a></li>
-                <li><a href="/auth/signup">Signup</a></li>
-                <li><a href="/auth/login">Login</a></li>
-                <li><a href="/auth/logout">Logout</a></li>
-                <li><a href="/profile">Profile</a></li>
+                <li><a href="/about">About </a></li>
+                <li><a href="/contact">Contact </a></li>
                 <li><a href="/users">Users</a></li>
-                <li><a href="/posts/new">Create a Post</a></li>
                 <li><a href="/tags">See all tags</a></li>
                 <li><a href="/posts">View Posts</a></li>
+                <%if(!currentUser){%>
+                    <li><a href="/auth/signup">Signup</a></li>
+                    <li><a href="/auth/login">Login</a></li>
+                    <%} else if (currentUser){%>
+                        <li><a href="/auth/logout">Logout</a></li>
+                        <li><a href="/posts/new">Create a Post</a></li>
+                        <li><a href="/profile">Profile</a></li>
+                        <li><a href="/favorites/all" id='favoriteslink'>Favorites</a></li>
+                        <%}%>
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->

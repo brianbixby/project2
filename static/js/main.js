@@ -2,7 +2,10 @@ console.log("JS good to go, sir!");
 
 $(document).ready(function() {
     grabChartData('FR');
+
 });
+
+var currentIC;
 
 function grabChartData(indicatorCode) {
     var url = '/api/results';
@@ -36,7 +39,7 @@ function grabChartData(indicatorCode) {
 
 function parseJson(object) {
 
-    console.log(object);
+    // console.log(object);
     // console.log('object.dataset.column_names: ', object.parsedMain.dataset.column_names);
     var colmnNamesArray = object.parsedMain.dataset.column_names;
     getColumns(colmnNamesArray);
@@ -56,7 +59,7 @@ function getColumns(obj) {
 
 function getData(obj) {
     $('#wholeTable').innerHTML = "";
-    console.log("wholeTable.innerHTML: ", wholeTable.innerHTML);
+    // console.log("wholeTable.innerHTML: ", wholeTable.innerHTML);
     for (i = 0; i < obj.length; i++) {
         // console.log('Data Array: ', obj[i]);
         // console.log('Data Array date: ', obj[i][0]);
@@ -93,6 +96,21 @@ $('.delete-link').on('click', function(e) {
 
 $("#indicatorCode").change(function() {
     $("#wholeTable").empty();
-    var test = $('#indicatorCode').val();
-    grabChartData(test);
+    currentIC = $('#indicatorCode').val();
+    console.log('Indicator Code: ', currentIC);
+    grabChartData(currentIC);
+});
+// '/favorites/all'.on
+// $("favoriteslink").change(function() {
+//
+// });
+
+$("#favButton").click(function() {
+    console.log('Testing fav button: ', currentIC);
+    $.ajax({
+        method: 'POST',
+        url: '/favorites/' + currentIC
+    }).done(function(data) {
+        window.location = './';
+    });
 });
