@@ -10,6 +10,7 @@ var flash = require('connect-flash');
 var isLoggedIn = require('./middleware/isLoggedIn');
 var path = require('path');
 var moment = require('moment');
+var async = require("async");
 var api = require('./modules/apiManipulation');
 
 //global variables
@@ -70,24 +71,24 @@ app.get('/', function(req, res) {
 });
 
 app.post('/api/results', function(req, res) {
-    console.log('req.body-app.post: ', req.body);
-    var baseUrl = 'https://www.quandl.com/api/v3/datasets/ZILL/';
-    var areaCategory = 'S';
-    var areaCode = '00013';
-    var indicatorCode = req.body.indicatorCode || 'FR';
-    console.log('indicator code!!', indicatorCode);
-    var key = 'YLSxgabiaDdCAQPtRwAN';
-    var url = baseUrl + areaCategory + areaCode + '_' + indicatorCode + '.json?api_key=' + key;
-    // ZILL/{AREA_CATEGORY}{AREA_CODE}_{INDICATOR_CODE}
-    request(url, function(error, response, main) {
-        var parsedMain = JSON.parse(main);
-        if (!error && response.statusCode == 200) {
-            api.parseJson(parsedMain);
-            res.send({
-                parsedMain: parsedMain
-            });
-        }
-    });
+    // console.log('req.body-app.post: ', req.body);
+    // var baseUrl = 'https://www.quandl.com/api/v3/datasets/ZILL/';
+    // var areaCategory = 'S';
+    // var areaCode = '00013';
+    // var indicatorCode = req.body.indicatorCode || 'FR';
+    // console.log('indicator code!!', indicatorCode);
+    // var key = 'YLSxgabiaDdCAQPtRwAN';
+    // var url = baseUrl + areaCategory + areaCode + '_' + indicatorCode + '.json?api_key=' + key;
+    // // ZILL/{AREA_CATEGORY}{AREA_CODE}_{INDICATOR_CODE}
+    // request(url, function(error, response, main) {
+    //     var parsedMain = JSON.parse(main);
+    //     if (!error && response.statusCode == 200) {
+    //         api.parseJson(parsedMain);
+    //         res.send({
+    //             parsedMain: parsedMain
+    //         });
+    //     }
+    // });
 });
 
 app.use('/articles', require('./controllers/articles'));

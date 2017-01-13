@@ -30,7 +30,12 @@ router.post('/', function(req, res) {
 
 // GET /users/new - display form for creating a new user
 router.get('/new', function(req, res) {
-    res.render('users/new');
+    db.user.findAll()
+        .then(function(users) {
+            res.render('users/new', {
+                users: users
+            });
+        });
 });
 
 // GET /users/:id - display a specific user and their posts

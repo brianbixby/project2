@@ -3,59 +3,16 @@ var async = require("async");
 var db = require('../models');
 var router = express.Router();
 
-// POST /posts - create a new post
-router.post('/', function(req, res) {
-    //Make the comma-separated list of tags into an array
-    var tags = [];
-    if (req.body.tags) {
-        tags = req.body.tags.split(",");
-    }
-
-    //A few basic validations
-    if (!req.body.title || req.body.title.trim().length < 2) {
-        res.send("Error: Please include a title containing at least 3 letters.");
-    }
-    if (!req.body.content || req.body.content.trim().length < 5) {
-        res.send("Error: Please include a valid content section.");
-    }
-
-    db.post.create({
-            title: req.body.title,
-            content: req.body.content,
-            userId: req.body.userId
-        })
-        .then(function(post) {
-            if (tags.length > 0) {
-                //Add those tags
-                async.forEachSeries(tags, function(tag, callback) {
-                    db.tag.findOrCreate({
-                            where: {
-                                name: tag
-                            }
-                        })
-                        .spread(function(newTag, wasCreated) {
-                            if (newTag) {
-                                //Add the relationship in the third table, post_tag
-                                post.addTag(newTag);
-                            }
-                            callback(null);
-                        });
-                }, function() {
-                    //This runs when everything is done
-                    res.redirect('/posts/' + post.id);
-                }); //end of forEach
-            } //end if statement
-            else {
-                res.redirect('/posts/' + post.id);
-            }
-        })
-        .catch(function(error) {
-            console.log("ERROR: ", error);
-            res.status(400).render('site/404');
+router.get("/", function(req, res) {
+    db.post.findAll({
+        include: [db.user]
+    }).then(function(posts) {
+        res.render('posts/all', {
+            posts: posts
         });
+    });
 });
 
-// GET /posts/new - display form for creating new posts
 router.get('/new', function(req, res) {
     db.user.findAll()
         .then(function(users) {
@@ -68,8 +25,57 @@ router.get('/new', function(req, res) {
         });
 });
 
-// GET /posts/:id - display a specific post and its user
+router.post("/new", function(req, res) {
+    var tags = [];
+    if (req.body.tags) {
+        tags = req.body.tags.split(",");
+    }
+    console.log("tags array", tags);
+
+    if (!req.body.title || req.body.title.trim().length < 2) {
+        res.send("Error: Please include a title containing at least 3 charachters");
+    }
+    // trim.length accounts for spaces
+    if (!req.body.content || req.body.content.trim().length < 5) {
+        res.send("Error: Please include a valid content section");
+    }
+    db.post.create({
+            title: req.body.title,
+            content: req.body.content,
+            userId: req.body.userId,
+            tag: req.body.tags
+        })
+        .then(function(post) {
+            if (tags.length > 0) {
+                // add those tags
+                // tags might not get loaded so we do a second load
+                tags.forEach(function(tag) {
+                    db.tag.findOrCreate({
+                            where: {
+                                name: tag
+                            }
+                        })
+                        .spread(function(newTag, wasCreated) {
+                            if (newTag) {
+                                post.addTag(newTag);
+                            }
+                        });
+                }); //end of for each
+                res.redirect('/posts/' + post.id);
+            } else {
+                res.redirect('/posts/' + post.id);
+            }
+        })
+        .catch(function(error) {
+            res.status(400).render('site/404');
+        });
+});
+
+//
 router.get('/:id', function(req, res) {
+    // db.post.findAll({
+    //     include: [db.user]
+    // }).then(function(posts)
     db.post.find({
             where: {
                 id: req.params.id
@@ -83,17 +89,49 @@ router.get('/:id', function(req, res) {
             });
         })
         .catch(function(error) {
-            res.status(400).render('main/404');
+            res.status(400).render('site/404');
         });
 });
-
+//
 router.post('/:id/comments', function(req, res) {
     db.comment.create({
-        name: req.body.name || 'Anonymous',
         content: req.body.content,
-        postId: req.params.id
+        postId: req.params.id,
+        // userId: req.body.userId || 'Anonymous'
     }).then(function(comment) {
         res.redirect('/posts/' + req.params.id);
+    });
+});
+//
+//
+// // delete post and redirects
+router.delete("/:id", function(req, res) {
+    db.post.findById(req.params.id).then(function(post) {
+        post.destroy();
+        console.log(req.params.id);
+        res.send({
+            message: 'success destroying'
+        });
+    });
+    res.redirect('/posts');
+});
+//
+// //goes to edit form by id
+router.get('/:id/edit', function(req, res) {
+    db.post.findById(req.params.id).then(function(post) {
+        res.render('posts/edit', {
+            post: post
+        });
+    });
+});
+// //updates by given id
+router.put('/:id', function(req, res) {
+    db.post.findById(req.params.id).then(function(post) {
+        post.update(req.body);
+        res.send({
+            message: 'success putting'
+        });
+        res.redirect('posts/:id');
     });
 });
 
