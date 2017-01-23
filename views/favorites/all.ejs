@@ -1,3 +1,21 @@
-<H1>FAVORITE PAGE </H1>
+<H1>My Favorites</H1>
+<% favorites.forEach(function(favorite) { %>
+  <div>
+    <h3><a href="/favorites/<%= favorite.id %>">
+      <span id="<%=favorite.indicatorcode%>"></span>
+    </a></h3>
+  </div>
+  <a href="/favorites/<%= favorite.id %>" class="delete-link" >Remove from Favorites</a>
+  <hr>
+<% }); %>
 
-<div id="curve_chart" class="favChart" style="width: 900px; height: 500px"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+// on ready calls ajax request function for hyperlinked title via indicatorcode
+  $(document).ready(function() {
+    <% favorites.forEach(function(favorite) { %>
+      <% var icString = favorite.indicatorcode.toString()  %>
+      grabChartData("<%= icString %>");
+    <% }); %>
+  });
+</script>

@@ -1,40 +1,24 @@
 <nav class="navbar navbar-default" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
       </button>
-
-            <a class="navbar-brand" href="/">Project 2</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                <!-- <li><a href="/articles" class="btn btn-primary">All Articles </a></li>
-                <li><a href="/articles/new" class="btn btn-info">New Article </a></li> -->
-                <li><a href="/about">About </a></li>
-                <li><a href="/contact">Contact </a></li>
-                <li><a href="/users">Users</a></li>
-                <li><a href="/tags">See all tags</a></li>
-                <li><a href="/posts">View Posts</a></li>
-                <%if(!currentUser){%>
-                    <li><a href="/auth/signup">Signup</a></li>
-                    <li><a href="/auth/login">Login</a></li>
-                    <%} else if (currentUser){%>
-                        <li><a href="/auth/logout">Logout</a></li>
-                        <li><a href="/posts/new">Create a Post</a></li>
-                        <li><a href="/profile">Profile</a></li>
-                        <li><a href="/favorites/all" id='favoriteslink'>Favorites</a></li>
-                        <%}%>
-
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
+      <a class="navbar-brand" href="/">Project 2</a>
     </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        <%if(!currentUser){%>
+          <li><a href="/auth/signup">Signup</a></li>
+          <li><a href="/auth/login">Login</a></li>
+        <%} else if (currentUser){%>
+          <li><a href="/auth/logout">Logout</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/favorites/all" id='favoriteslink'>Favorites</a></li>
+        <%}%>
+      </ul>
+    </div>
+  </div>
 </nav>
