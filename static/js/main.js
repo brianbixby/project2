@@ -96,7 +96,7 @@ $('.delete-link').on('click', function(e) {
   }).done(function(data) {
     console.log(data);
     Element.remove();
-    window.location = 'http://localhost:3000/favorites/all';
+    window.location = 'favorites/all';
   });
 });
 // if the drop down menu changes the page automatically responds
