@@ -23,18 +23,18 @@ router.post('/signup', function(req, res) {
         if (created) {
 // once you create a account it auto logs you in
             passport.authenticate('local', {
-                successRedirect: '/',
+                successRedirect: 'https://radiant-tor-71519.herokuapp.com',
                 successFlash: 'account created and logged in'
             })(req, res);
 // req and res here get passed into passport.authenticate function it's in
             // res.redirect('/');
         } else {
             req.flash('error', 'email already exists');
-            res.redirect('/auth/signup');
+            res.redirect('https://radiant-tor-71519.herokuapp.com/auth/signup');
         }
     }).catch(function(error) {
         req.flash('error', error.message);
-        res.redirect('/auth/signup');
+        res.redirect('https://radiant-tor-71519.herokuapp.com/auth/signup');
     });
     // res.send(req.body);
 // json data shows on page with res.send email name and password
