@@ -45,8 +45,8 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/auth/login',
+    successRedirect: 'https://radiant-tor-71519.herokuapp.com',
+    failureRedirect: 'https://radiant-tor-71519.herokuapp.com/auth/login',
     successFlash: 'logged in',
     failureFlash: 'invalid username or password'
 }));
@@ -56,7 +56,7 @@ router.get('/facebook', passport.authenticate('facebook', {
 }));
 
 router.get('/facebook/callback', passport.authenticate('facebook', {
-    successRedirect: 'https://radiant-tor-71519.herokuapp.com/',
+    successRedirect: 'https://radiant-tor-71519.herokuapp.com',
     failureRedirect: 'https://radiant-tor-71519.herokuapp.com/auth/login',
     failureFlash: 'An error occurred, please try later',
     successFlash: 'You have logged in with Facebook'
