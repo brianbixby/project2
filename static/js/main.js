@@ -97,7 +97,7 @@ $('.delete-link').on('click', function(e) {
     console.log(data);
     Element.remove();
     window.location = 'https://radiant-tor-71519.herokuapp.com/favorites/all';
-    window.location = 'localhost:3000/favorites/all';
+    // window.location = 'localhost:3000/favorites/all';
   });
 });
 // if the drop down menu changes the page automatically responds
