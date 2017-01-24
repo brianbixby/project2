@@ -78,6 +78,9 @@
   </div>
   <div class="row">
     <div class=".col-xs-12 .col-md-12 .col-lg-10" id="curve_chart"></div>
+    <%if(currentUser){%>
+      <p><button id="favButton">Add to Favorites</button></p>
+    <%}%>
     <div id="chartDescription">
       <p></p>
     </div>
@@ -88,9 +91,7 @@
 
 </div>
 <!-- if logged in they can add it as a favorite -->
-<%if(currentUser){%>
-  <p><button id="favButton">Add to Favorites</button></p>
-<%}%>
+
 
 
 

@@ -8,6 +8,10 @@ html {
   min-height: 350px;
 }
 
+#login, #signUp, #faveHeader {
+  margin-top: 80px;
+}
+
 body,
 h1,
 h2,
