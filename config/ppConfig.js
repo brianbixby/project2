@@ -40,7 +40,7 @@ passport.use(new LocalStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: process.env.BASE_URL + '/auth/facebook/callback',
+    callbackURL: process.env.BASE_URL + 'auth/facebook/callback',
     profileFields: ['id', 'email', 'displayName'],
     enableProof: true
 }, function(accessToken, refreshToken, profile, cb) {
