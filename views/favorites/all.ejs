@@ -2,7 +2,7 @@
 <% favorites.forEach(function(favorite) { %>
   <div>
     <h3><a href="/favorites/<%= favorite.id %>">
-      <span id="<%=favorite.indicatorcode%>"><h3></h3></span>
+      <span id="<%=favorite.indicatorcode%>"></span>
     </a></h3>
   </div>
   <a href="/favorites/<%= favorite.id %>" class="delete-link" >Remove from Favorites</a>

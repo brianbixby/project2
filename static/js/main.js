@@ -1,10 +1,13 @@
 // pre-populates chart on homepage
 $(document).ready(function() {
-    grabChartData('FR');
-  });
-
+ if(window.location.pathname == "/") {
+   currentIC = $('#indicatorCode').val();
+   grabChartData(currentIC);
+ }
+});
 
 var currentIC;
+
 // ajax request
 function grabChartData(indicatorCode) {
     var url = '/api/results';
@@ -40,7 +43,8 @@ function grabChartData(indicatorCode) {
           favId(indicatorCode);
           drawChart2(chartArrayData);
         }
-        else if(window.location.pathname == "/favorites/all") {
+        else if(window.location.pathname == "/favorites/all" && document.readyState === "complete") {
+          console.log('indicatorcode', indicatorCode);
           document.getElementById(indicatorCode).append(chartName + " " + oldestDate + " through "  + newestDate);
           favId(indicatorCode);
           drawChart2(chartArrayData);
