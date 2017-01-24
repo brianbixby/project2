@@ -23,18 +23,18 @@ router.post('/signup', function(req, res) {
         if (created) {
 // once you create a account it auto logs you in
             passport.authenticate('local', {
-                successRedirect: 'https://radiant-tor-71519.herokuapp.com/',
+                successRedirect: '/',
                 successFlash: 'account created and logged in'
             })(req, res);
 // req and res here get passed into passport.authenticate function it's in
             // res.redirect('/');
         } else {
             req.flash('error', 'email already exists');
-            res.redirect('https://radiant-tor-71519.herokuapp.com/auth/signup');
+            res.redirect('/auth/signup');
         }
     }).catch(function(error) {
         req.flash('error', error.message);
-        res.redirect('https://radiant-tor-71519.herokuapp.com/auth/signup');
+        res.redirect('/auth/signup');
     });
     // res.send(req.body);
 // json data shows on page with res.send email name and password
@@ -45,21 +45,21 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: 'https://radiant-tor-71519.herokuapp.com/',
-    failureRedirect: 'https://radiant-tor-71519.herokuapp.com/auth/login',
+    successRedirect: '/',
+    failureRedirect: '/auth/login',
     successFlash: 'logged in',
     failureFlash: 'invalid username or password'
 }));
 
 router.get('/facebook', passport.authenticate('facebook', {
-  scope: ['public_profile', 'email']
+    scope: ['public_profile', 'email']
 }));
 
 router.get('/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/',
-  failureRedirect: '/auth/login',
-  failureFlash: 'An error occurred, please try later',
-  successFlash: 'You have logged in with Facebook'
+    successRedirect: '/',
+    failureRedirect: '/auth/login',
+    failureFlash: 'An error occurred, please try later',
+    successFlash: 'You have logged in with Facebook'
 }));
 
 
