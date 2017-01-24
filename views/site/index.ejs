@@ -1,3 +1,35 @@
+<a name="about"></a>
+<div id="topDiv"class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <h1>The Best Investment On Earth is Earth</h1>
+                    <h3>Market Data from the Washington Real Estate Group</h3>
+                    <hr class="intro-divider">
+                    <!-- <ul class="list-inline intro-social-buttons">
+                        <li>
+                            <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                        </li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<hr>
+
+
+
+
+
 <!-- drop down menu -->
 <form action="/api/results" method="POST">
   <div class="form-group">
@@ -35,11 +67,21 @@
 </form>
 
 <!--html for chart and table  -->
+
 <div id="chartMetaData">
-  <div id="chartName">
-    <p></p>
+  <div class="row">
+    <div class="col-lg-12">
+      <div id="chartName">
+        <span class="text-nowrap"><p></p></span>
+      </div>
+    </div>
   </div>
-  <div id="curve_chart" style="width: 900px; height: 500px"></div>
+  <div class="row">
+    <div class=".col-xs-12 .col-md-12 .col-lg-10" id="curve_chart"></div>
+    <table id="wholeTable" class=".col-xs-offset-0 .col-md-4 .col-lg-10 table table-striped table-condensed">
+      <tr id="r1"> </tr>
+    </table>
+  </div>
   <div id="chartDescription">
     <p></p>
   </div>
@@ -49,9 +91,7 @@
   <p><button id="favButton">Add to Favorites</button></p>
 <%}%>
 
-<table id="wholeTable" class="table table-striped table-condensed">
-  <tr id="r1"> </tr>
-</table>
+
 
 <!-- I'm going to enable more parameters this is the beginning of that code -->
 <!-- <div class="form-group">
