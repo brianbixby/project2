@@ -52,14 +52,14 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 router.get('/facebook', passport.authenticate('facebook', {
-    scope: ['public_profile', 'email']
+  scope: ['public_profile', 'email']
 }));
 
 router.get('/facebook/callback', passport.authenticate('facebook', {
-    successRedirect: 'https://radiant-tor-71519.herokuapp.com/',
-    failureRedirect: 'https://radiant-tor-71519.herokuapp.com/auth/login',
-    failureFlash: 'An error occurred, please try later',
-    successFlash: 'You have logged in with Facebook'
+  successRedirect: '/',
+  failureRedirect: '/auth/login',
+  failureFlash: 'An error occurred, please try later',
+  successFlash: 'You have logged in with Facebook'
 }));
 
 
