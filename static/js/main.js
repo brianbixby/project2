@@ -1,9 +1,8 @@
 // pre-populates chart on homepage
 $(document).ready(function() {
-  if(window.location.pathname == "/") {
     grabChartData('FR');
-  }
-});
+  });
+
 
 var currentIC;
 // ajax request
