@@ -36,7 +36,7 @@ function drawChart(chartArrayData) {
 // so I put the if statement in
 function drawChart2(chartArrayData) {
   for(i=0; i < favoriteIds.length; i++) {
-    if(window.location.pathname !== "/favorites/all") {
+
     var data2 = google.visualization.arrayToDataTable(chartArrayData);
     var options2 = {
         title: '',
@@ -48,4 +48,3 @@ function drawChart2(chartArrayData) {
     chartArrayData.forEach(chart.draw(data2, options2));
   }
   }
-}
